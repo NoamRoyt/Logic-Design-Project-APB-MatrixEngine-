@@ -2,17 +2,11 @@
 `resetall 
 `timescale 1ns/10ps
 
-/*
-
-	TODO ACHUSHARMUTA:
-	-	Implement buffer
-	--	A single module implementation for both matrices.
-
-*/
 
 module PaddingZeroA #(
     parameter data_width = 32,
-    parameter bus_width = 64
+    parameter bus_width = 64,
+    parameter size_new_matrix = 2*max_dim
 	//parameter N = 2 // row
 	//parameter K = 3 // col
 )
@@ -33,10 +27,10 @@ done_paddign_A,
 	localparam max_dim = bus_width/data_width ;
 	input wire clk;
 	input wire start_bit;
-    input wire reset;
+    	input wire reset;
 	input wire done;
 	input wire write_enable_A;
-    input wire [max_dim*data_width-1:0] bus; // for red from the memory 
+    	input wire [max_dim*data_width-1:0] bus; // for red from the memory 
 	input wire done_paddignB;
 	output reg [data_width*max_dim -1 : 0] vectorA ;
 	output wire done_paddign_A;
@@ -99,11 +93,11 @@ integer row, col;
 always @(posedge clk) begin
     if (done_read_matrixA) begin // Assuming a start signal triggers the padding operation
         for (row = 0; row < max_dim; row = row + 1) begin
-            for (col = 0; col < (2*max_dim - 1); col = col + 1) begin
+            for (col = 0; col < (size_new_matrix - 1); col = col + 1) begin
                 if (col >= row && col < row + max_dim) begin
-                    matrixA_padded[row*(2*max_dim-1) + col] <= matrixA[row*max_dim + col - row];
+                    matrixA_padded[row*(size_new_matrix-1) + col] <= matrixA[row*max_dim + col - row];
                 end else begin
-                    matrixA_padded[row*(2*max_dim-1) + col] <= 0;
+                    matrixA_padded[row*(size_new_matrix-1) + col] <= 0;
                 end
             end
         end
@@ -134,10 +128,10 @@ always @(posedge clk) begin
 		iteration_count_fowaord<=0;
 		finsh_foword_a<=0;
 	end
-	else if ((iteration_count_fowaord< (2*max_dim) - 2 ) && !finsh_foword_a && done_paddignB && done_paddignA) begin
+	else if ((iteration_count_fowaord< (size_new_matrix) - 2 ) && !finsh_foword_a && done_paddignB && done_paddignA) begin
 		iteration_count_fowaord <= (iteration_count_fowaord + 1);
 	end
-	else if (iteration_count_fowaord == ((2*max_dim) - 2) && !finsh_foword_a ) begin
+	else if (iteration_count_fowaord == ((size_new_matrix) - 2) && !finsh_foword_a ) begin
 		finsh_foword_a<= 1;
 		iteration_count_fowaord<=0;
 	end
