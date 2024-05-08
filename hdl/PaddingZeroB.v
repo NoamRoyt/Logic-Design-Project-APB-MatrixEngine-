@@ -1,26 +1,11 @@
-//
-// Verilog Module project1_lib.padding_zero
-//
-// Created:
-//          by - 97252.UNKNOWN (LAPTOP-787PJRJU)
-//          at - 13:46:14 16/02/2024
-//
-// using Mentor Graphics HDL Designer(TM) 2021.1 Built on 14 Jan 2021 at 15:11:42
-//
-//
-//
-//
-//
-//
-//
-//
+
 `resetall 
 `timescale 1ns/10ps
 module PaddingZeroB #(
     parameter data_width = 32,
-	parameter bus_width = 64
-	//parameter N = 2 // row
-	//parameter K = 3 // col
+    parameter bus_width = 64,
+    parameter row_matrix_new  = 2*max_dim
+
 )
 	(
      clk,
@@ -42,7 +27,7 @@ localparam max_dim = bus_width/data_width ;
 	input wire write_enable_B;
 	input wire start_bit;
 	input wire done;
-    input wire [max_dim*data_width-1:0] bus; // for red from the memory 
+    	input wire [max_dim*data_width-1:0] bus; // for red from the memory 
 	input wire done_paddignA;
 	output reg [data_width*max_dim -1 : 0] vectorB;
 	output wire done_paddign_B;
@@ -137,10 +122,10 @@ always @(posedge clk) begin
 		iteration_count_fowaord<=0;
 		finsh_foword_b<=0;
 	end
-	else if ((iteration_count_fowaord< (2*max_dim) - 2 ) && !finsh_foword_b && done_paddignB && done_paddignA) begin
+	else if ((iteration_count_fowaord< (row_matrix_new) - 2 ) && !finsh_foword_b && done_paddignB && done_paddignA) begin
 		iteration_count_fowaord <= (iteration_count_fowaord + 1);
 	end
-	else if (iteration_count_fowaord == ((2*max_dim) - 2) && !finsh_foword_b ) begin
+	else if (iteration_count_fowaord == ((row_matrix_new) - 2) && !finsh_foword_b ) begin
 		finsh_foword_b<= 1;
 		iteration_count_fowaord<=0;
 	end
