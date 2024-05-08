@@ -3,6 +3,9 @@ APB-MatrixEngine is a Verilog-based system designed for high-performance matrix 
 
 Features
 Matrix Operations: Supports multiple matrix operations including addition, subtraction, multiplication, and potentially inversion.
+
 APB Interface: Fully compatible with the APB protocol, ensuring smooth communication with the main CPU.
+
 Configurable Dimensions: Supports matrices of configurable dimensions, adaptable for various application needs.
+
 Optimized Performance: Designed for maximum throughput with minimal latency to enhance performance in critical applications.
