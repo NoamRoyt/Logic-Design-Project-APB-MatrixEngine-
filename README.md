@@ -10,3 +10,4 @@ Configurable Dimensions: Supports matrices of configurable dimensions, adaptable
 
 Optimized Performance: Designed for maximum throughput with minimal latency to enhance performance in critical applications.
 
+# Overview of the Systolic Architecture
