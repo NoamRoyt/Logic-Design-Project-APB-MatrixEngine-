@@ -1,6 +1,5 @@
 `resetall 
 `timescale 1ns/10ps
-// TODO: COMPLETE CONNECTIONS TO CONTROL REGISTER
 module Control_register #(
     parameter data_width = 32,
     parameter bus_width = 64
@@ -10,8 +9,6 @@ module Control_register #(
 	input wire clk , 
 	input wire reset_ni,
 	input wire done_i,
-	//input wire matrix_A_rady,
-	//input wire matrix_B_rady,
 	output wire start_bit,
 	output wire mode_bit,
 	output wire [1:0] write_target,
@@ -39,7 +36,6 @@ always @(posedge clk or negedge reset_ni) begin
 end
 
 assign ctrl_reg_o = mem;
-// change ctrl_write_i to mem
 assign  start_bit = ctrl_write_i[0];
 assign  mode_bit = ctrl_write_i[1];
 assign  write_target = ctrl_write_i[3:2];
