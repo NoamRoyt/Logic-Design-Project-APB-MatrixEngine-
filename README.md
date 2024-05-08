@@ -9,3 +9,4 @@ APB Interface: Fully compatible with the APB protocol, ensuring smooth communica
 Configurable Dimensions: Supports matrices of configurable dimensions, adaptable for various application needs.
 
 Optimized Performance: Designed for maximum throughput with minimal latency to enhance performance in critical applications.
+
