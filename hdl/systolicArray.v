@@ -25,12 +25,12 @@ localparam max_dim = bus_width/data_width ;
 	input wire start_bit;
 	input wire [max_dim*max_dim*bus_width -1 : 0] pwdata_from_sp;
   	input wire [max_dim*data_width-1:0] A; // Flatten the input array A
-    input wire [max_dim*data_width-1:0] B; // Flatten the input array B
-    output reg [max_dim*max_dim*bus_width-1:0] result; // Flatten the output array result
+        input wire [max_dim*data_width-1:0] B; // Flatten the input array B
+        output reg [max_dim*max_dim*bus_width-1:0] result; // Flatten the output array result
 	output reg [max_dim*max_dim*bus_width-1:0] pwdata_to_sp;
 	output wire [max_dim*max_dim-1:0] overflow_o;
 	output wire finsh_calculte_to_sp;
-	//output reg [31:0] array[0:12]
+	
 
 // Internal wire arrays for communication between PEs
 wire [data_width-1:0] continue_A [max_dim*max_dim-1:0];
@@ -39,7 +39,6 @@ wire [data_width-1:0] continue_B [max_dim*max_dim-1:0];
 // Internal wire arrays to store intermediate results between PEs
 wire [bus_width-1:0] intermediate_result [max_dim*max_dim-1:0];
 wire [max_dim*max_dim-1:0] overflow;
-//wire [bus_width -1 :0] matrix_c [max_dim*max_dim - 1 : 0];
 reg finsh_calculte;
 
 reg [max_dim*max_dim-1:0] counter ;
